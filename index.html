@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <title>Portfolio Maker</title>
+    <style>
+        label {
+            font-weight: bold
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        #myBtn {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Fixed/sticky position */
+            bottom: 20px;
+            /* Place the button at the bottom of the page */
+            right: 30px;
+            /* Place the button 30px from the right */
+            z-index: 99;
+            /* Make sure it does not overlap */
+            border: none;
+            /* Remove borders */
+            outline: none;
+            /* Remove outline */
+            background-color: red;
+            /* Set a background color */
+            color: white;
+            /* Text color */
+            cursor: pointer;
+            /* Add a mouse pointer on hover */
+            padding: 15px;
+            /* Some padding */
+            border-radius: 10px;
+            /* Rounded corners */
+            font-size: 18px;
+            /* Increase font size */
+        }
+
+        #myBtn:hover {
+            background-color: #555;
+            /* Add a dark-grey background on hover */
+        }
+    </style>
+</head>
+
+<body style="background-color: #D3D3D3;">
+    <div class="container bg-white mt-3 shadow p-2">
+        <h1 class="display-1 text-center">Portfolio Builder</h1>
+        <p class="lead text-center">Fill Out The Form Below To Generate Your Own Portfolio!
+        </p>
+        <form action="build.php" onsubmit="return validateForm()" method="post" enctype="multipart/form-data"  >
+        <input type="hidden" id="projectCount" name="projectCount" value="1">
+        <input type="hidden" id="code" name="code" value="0">
+
+        <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" class="form-control" name="fullName" id="fullName" placeholder="Full Name">
+            </div>
+
+            <div class="form-group">
+                <label for="headShot">HeadShot</label>
+                <input type="file" class="form-control-file" name="headShot" id="headShot">
+            </div>
+
+            <div class="form-group">
+                <label for="resume">Resume</label>
+                <input type="file" class="form-control-file" name="resume" id="resume">
+            </div>
+
+            <div class="form-group">
+                <label for="about">About Me</label>
+                <textarea class="form-control" name="about" id="about" rows="15"></textarea>
+            </div>
+
+            <div class="border border-primary rounded p-3 mb-3" id="p1">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <label for="title1">Project Title</label>
+                            <input type="text" class="form-control" id="title1" name="title1" placeholder="Project Title">
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="coverImg1">CoverImage</label>
+                                <input type="file" name="coverImg1" class="form-control-file" id="coverImg1">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="slogan1">Project Slogan</label>
+                    <input type="text" class="form-control" name="slogan1" id="slogan1" placeholder="Exciting Slogan!">
+                </div>
+
+                <div class="form-group">
+                    <label for="date1">Project Completion</label>
+                    <input type="text" class="form-control w-25" name="date1" id="date1" placeholder="YYYY">
+                </div>
+
+                <div class="form-group">
+                    <label for="platform1">Platform(s)</label>
+                    <input type="text" class="form-control" name="platforms1" id="platforms1" placeholder="Comma Separated">
+                </div>
+
+                <div class="form-group">
+                    <label for="tools1">Tool(s) Used</label>
+                    <input type="text" class="form-control" name="tools1" id="tools1" placeholder="Comma Separated">
+                </div>
+
+                <div class="form-group">
+                    <label for="about1">Project Description</label>
+                    <textarea class="form-control" id="about1"  name="about1" rows="8"></textarea>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-10">
+                    </div>
+                    <div class="col-lg-2">
+                    </div>
+                </div>
+
+            </div>
+            <p class="lead text-center">**IMPORTANT: Open the Zip Folder With Winrar/7 Zip Windows Default Archive Program Will Not Read This File.**</p>
+            <p class="text-center">You must also open <i>index.html</i> in a server environment such as Node.js or Apache for the portfolio to work</p>
+            <button id='submitBtn' type="submit" class="btn btn-primary" style='width: 50%; margin-left: 25%;'>Submit</button>
+        </form>
+        <button type="button" onclick="addProject()" class="btn btn-danger rounded-circle mb-3">+</button>
+
+        <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+    </div>
+
+
+    
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+        <script src='./main.js'></script>
+    <!-- Option 2: jQuery, Popper.js, and Bootstrap JS
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>
